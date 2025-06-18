@@ -22,7 +22,7 @@ export const cards: Card[] = [
   {
     id: "axis-magnus",
     name: "Axis Magnus",
-    image: "/img/magnus.png",
+    image: "/img/magnus.svg",
     tagline: "Unlimited lounges · High points",
     annualFee: 10000,
     isLifetimeFree: false,
@@ -35,7 +35,7 @@ export const cards: Card[] = [
   {
     id: "hdfc-millennia",
     name: "HDFC Millennia",
-    image: "/img/millennia.png",
+    image: "/img/millennia.svg",
     tagline: "E-commerce queen · 5% cashback",
     annualFee: 1000,
     isLifetimeFree: false,
@@ -48,7 +48,7 @@ export const cards: Card[] = [
   {
     id: "sbi-cashback",
     name: "SBI Cashback",
-    image: "/img/sbi.png",
+    image: "/img/sbi.svg",
     tagline: "Flat 5% online · ₹0 fee*",
     annualFee: 0,
     isLifetimeFree: true,
@@ -61,7 +61,7 @@ export const cards: Card[] = [
   {
     id: "axis-flipkart",
     name: "Axis Flipkart",
-    image: "/img/flipkart.png",
+    image: "/img/flipkart.svg",
     tagline: "Unlimited cashback king",
     annualFee: 500,
     isLifetimeFree: false,
@@ -74,7 +74,7 @@ export const cards: Card[] = [
   {
     id: "idfc-wow",
     name: "IDFC WOW",
-    image: "/img/wow.png",
+    image: "/img/wow.svg",
     tagline: "100% digital · ₹0 fee · rent OK",
     annualFee: 0,
     isLifetimeFree: true,
