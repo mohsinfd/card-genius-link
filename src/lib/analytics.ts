@@ -1,13 +1,11 @@
 export function trackEvent(name: string, data?: Record<string, unknown>) {
   if (typeof window !== 'undefined') {
     try {
-      fetch('/analytics', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name, data })
-      });
+      if ((window as any).plausible) {
+        (window as any).plausible(name, { props: data });
+      }
     } catch (_) {
-      // ignore errors
+      // ignore analytics errors
     }
   }
 }
