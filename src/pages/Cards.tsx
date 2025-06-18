@@ -14,7 +14,7 @@ const Cards = () => {
   const [showFilters, setShowFilters] = useState(false);
 
   const filteredCards = useMemo(() => {
-    return cards.filter((card: Card) => {
+    const result = cards.filter((card: Card) => {
       // Search term filter
       if (filters.searchTerm) {
         const searchLower = filters.searchTerm.toLowerCase();
@@ -62,6 +62,12 @@ const Cards = () => {
 
       return true;
     });
+
+    return result.sort((a, b) =>
+      filters.sortOrder === "asc"
+        ? a.name.localeCompare(b.name)
+        : b.name.localeCompare(a.name)
+    );
   }, [cards, filters]);
 
   const handleCardClick = (card: Card) => {
@@ -110,7 +116,7 @@ const Cards = () => {
 
         <div className="flex gap-6">
           {/* Desktop Filters Sidebar */}
-          <div className="hidden md:block w-80 bg-cg-card rounded-lg p-6 shadow-cg-card h-fit">
+          <div className="hidden md:block w-80 bg-cg-card rounded-lg p-6 shadow-cg-card h-fit animate-slide-up">
             <div className="flex items-center justify-between mb-4">
               <h3 className="font-heading font-semibold text-lg">Filters</h3>
               <button
@@ -174,6 +180,21 @@ const Cards = () => {
                   <span>{access}</span>
                 </label>
               ))}
+            </div>
+
+            {/* Sort By */}
+            <div className="mb-6">
+              <h4 className="font-semibold mb-3">Sort By</h4>
+              <select
+                value={filters.sortOrder}
+                onChange={(e) =>
+                  updateFilters({ sortOrder: e.target.value as 'asc' | 'desc' })
+                }
+                className="w-full p-2 border rounded"
+              >
+                <option value="asc">Name A-Z</option>
+                <option value="desc">Name Z-A</option>
+              </select>
             </div>
           </div>
 
@@ -278,6 +299,21 @@ const Cards = () => {
                     <span>{access}</span>
                   </label>
                 ))}
+              </div>
+
+              {/* Sort By */}
+              <div>
+                <h4 className="font-semibold mb-3">Sort By</h4>
+                <select
+                  value={filters.sortOrder}
+                  onChange={(e) =>
+                    updateFilters({ sortOrder: e.target.value as 'asc' | 'desc' })
+                  }
+                  className="w-full p-2 border rounded"
+                >
+                  <option value="asc">Name A-Z</option>
+                  <option value="desc">Name Z-A</option>
+                </select>
               </div>
             </div>
 
