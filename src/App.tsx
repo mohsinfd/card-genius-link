@@ -11,6 +11,7 @@ import TopNav from "./components/TopNav";
 import BottomNav from "./components/BottomNav";
 import Index from "./pages/Index";
 import Cards from "./pages/Cards";
+import CardDetail from "./pages/CardDetail";
 import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
@@ -27,6 +28,7 @@ const App = () => (
                 <Routes>
                   <Route path="/" element={<Index />} />
                   <Route path="/cards" element={<Cards />} />
+                  <Route path="/cards/:id" element={<CardDetail />} />
                   {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
                   <Route path="*" element={<NotFound />} />
                 </Routes>

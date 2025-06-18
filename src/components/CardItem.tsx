@@ -4,6 +4,7 @@ import { Card } from '../data/cards';
 import { useCollection } from '../contexts/CollectionContext';
 import { Heart } from 'lucide-react';
 import CardTag from './CardTag';
+import { useToast } from '../hooks/use-toast';
 
 interface CardItemProps {
   card: Card;
@@ -23,10 +24,12 @@ const CardItem: React.FC<CardItemProps> = ({ card, onClick }) => {
     }
   };
 
+  const { toast } = useToast();
+
   const handleCTAClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    // For demo purposes, just show an alert
-    alert(`Affiliate link for ${card.name} copied!`);
+    navigator.clipboard.writeText(`${window.location.origin}/cards/${card.id}`);
+    toast({ title: "Link copied!" });
   };
 
   return (
