@@ -68,7 +68,14 @@ const Index = () => {
           <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
             {topCards.map((card) => (
               <div key={card.id} className="transform hover:scale-105 transition-transform">
-                <Link to={`/cards/${card.id}`}>
+                <Link
+                  to={`/cards/${card.id}`}
+                  onClick={() =>
+                    window.plausible?.('Card Click', {
+                      props: { cardName: card.name },
+                    })
+                  }
+                >
                   <div className="bg-cg-card p-4 rounded-cg-lg shadow-cg-card">
                     <div className="w-full h-24 bg-gradient-to-br from-cg-violet to-purple-600 rounded-lg mb-3 flex items-center justify-center">
                       <span className="text-white font-bold">{card.name.split(' ')[0]}</span>

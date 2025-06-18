@@ -25,14 +25,24 @@ const CardItem: React.FC<CardItemProps> = ({ card, onClick }) => {
 
   const handleCTAClick = (e: React.MouseEvent) => {
     e.stopPropagation();
+    window.plausible?.('Affiliate Link Copied', {
+      props: { cardName: card.name },
+    });
     // For demo purposes, just show an alert
     alert(`Affiliate link for ${card.name} copied!`);
   };
 
+  const handleCardClick = () => {
+    window.plausible?.('Card Click', {
+      props: { cardName: card.name },
+    });
+    onClick?.();
+  };
+
   return (
-    <div 
+    <div
       className="bg-cg-card p-4 rounded-cg-md shadow-cg-card cursor-pointer hover:shadow-lg transition-shadow animate-fade-in"
-      onClick={onClick}
+      onClick={handleCardClick}
     >
       <div className="flex gap-3">
         {/* Card Image */}
