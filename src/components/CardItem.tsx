@@ -5,6 +5,8 @@ import { useCollection } from '../contexts/CollectionContext';
 import { Heart } from 'lucide-react';
 import CardTag from './CardTag';
 import { Skeleton } from './ui/skeleton';
+import { useToast } from '../hooks/use-toast';
+import { trackEvent } from '../lib/analytics';
 
 interface CardItemProps {
   card: Card;
@@ -15,6 +17,7 @@ const CardItem: React.FC<CardItemProps> = ({ card, onClick }) => {
   const { isInCollection, addToCollection, removeFromCollection } = useCollection();
   const inCollection = isInCollection(card.id);
   const [imgLoaded, setImgLoaded] = React.useState(false);
+  const { toast } = useToast();
 
   const handleCollectionToggle = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -27,14 +30,20 @@ const CardItem: React.FC<CardItemProps> = ({ card, onClick }) => {
 
   const handleCTAClick = (e: React.MouseEvent) => {
     e.stopPropagation();
-    // For demo purposes, just show an alert
-    alert(`Affiliate link for ${card.name} copied!`);
+    navigator.clipboard.writeText(`https://example.com/offer/${card.id}`);
+    toast({ description: 'Affiliate link copied to clipboard.' });
+    trackEvent('copy_link', { id: card.id });
+  };
+
+  const handleCardClick = () => {
+    trackEvent('card_open', { id: card.id });
+    onClick?.();
   };
 
   return (
     <div
       className="bg-cg-card p-4 rounded-cg-md shadow-cg-card cursor-pointer hover:shadow-lg transition-shadow transform transition-transform hover:scale-105 hover:opacity-95 animate-fade-in"
-      onClick={onClick}
+      onClick={handleCardClick}
     >
       <div className="flex gap-3">
         {/* Card Image */}
