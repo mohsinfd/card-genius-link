@@ -4,6 +4,7 @@ import { Card } from '../data/cards';
 import { useCollection } from '../contexts/CollectionContext';
 import { Heart } from 'lucide-react';
 import CardTag from './CardTag';
+import { Skeleton } from './ui/skeleton';
 
 interface CardItemProps {
   card: Card;
@@ -13,6 +14,7 @@ interface CardItemProps {
 const CardItem: React.FC<CardItemProps> = ({ card, onClick }) => {
   const { isInCollection, addToCollection, removeFromCollection } = useCollection();
   const inCollection = isInCollection(card.id);
+  const [imgLoaded, setImgLoaded] = React.useState(false);
 
   const handleCollectionToggle = (e: React.MouseEvent) => {
     e.stopPropagation();
@@ -30,14 +32,22 @@ const CardItem: React.FC<CardItemProps> = ({ card, onClick }) => {
   };
 
   return (
-    <div 
-      className="bg-cg-card p-4 rounded-cg-md shadow-cg-card cursor-pointer hover:shadow-lg transition-shadow animate-fade-in"
+    <div
+      className="bg-cg-card p-4 rounded-cg-md shadow-cg-card cursor-pointer hover:shadow-lg transition-shadow transform transition-transform hover:scale-105 hover:opacity-95 animate-fade-in"
       onClick={onClick}
     >
       <div className="flex gap-3">
         {/* Card Image */}
-        <div className="w-16 h-10 bg-gradient-to-br from-cg-violet to-purple-600 rounded-lg flex-shrink-0 flex items-center justify-center">
-          <span className="text-white font-bold text-xs">{card.name.split(' ')[0]}</span>
+        <div className="relative w-16 h-10 flex-shrink-0">
+          {!imgLoaded && (
+            <Skeleton className="absolute inset-0 w-full h-full rounded-lg" />
+          )}
+          <img
+            src={card.image}
+            alt={`${card.name} logo`}
+            className={`w-16 h-10 object-contain rounded-lg bg-white transition-opacity ${imgLoaded ? 'opacity-100' : 'opacity-0'}`}
+            onLoad={() => setImgLoaded(true)}
+          />
         </div>
 
         {/* Card Info */}
