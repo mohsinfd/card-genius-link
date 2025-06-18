@@ -7,6 +7,7 @@ export interface FilterState {
   annualFeeRanges: string[];
   loungeAccess: string[];
   searchTerm: string;
+  sortOrder: "asc" | "desc";
 }
 
 interface FilterContextType {
@@ -20,7 +21,8 @@ const initialFilters: FilterState = {
   rentRewardsAllowed: false,
   annualFeeRanges: [],
   loungeAccess: [],
-  searchTerm: ''
+  searchTerm: '',
+  sortOrder: "asc"
 };
 
 const FilterContext = createContext<FilterContextType | undefined>(undefined);
